@@ -26,53 +26,56 @@ export default function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClos
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative">
-        <h2 className="text-2xl font-bold mb-4">{isLogin ? "Iniciar Sesión" : "Crear Cuenta"}</h2>
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative text-gray-900">
+        <h2 className="text-2xl font-bold mb-4 text-gray-900">{isLogin ? "Iniciar Sesión" : "Crear Cuenta"}</h2>
+        
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
             <div>
-              <label className="block text-sm font-medium mb-1">Nombre Completo</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">Nombre Completo</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                className="w-full border border-gray-300 rounded-lg p-2.5 text-sm text-gray-900 bg-white focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="Juan Pérez"
               />
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium mb-1">Correo Electrónico</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Correo Electrónico</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full border border-gray-300 rounded-lg p-2.5 text-sm text-gray-900 bg-white focus:ring-2 focus:ring-blue-500 outline-none"
               placeholder="usuario@udb.edu.sv"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Contraseña</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Contraseña</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full border border-gray-300 rounded-lg p-2.5 text-sm text-gray-900 bg-white focus:ring-2 focus:ring-blue-500 outline-none"
               placeholder="••••••••"
             />
           </div>
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+          <button type="submit" className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-bold hover:bg-blue-700 transition">
             {isLogin ? "Entrar" : "Registrarse"}
           </button>
         </form>
+
         <button
           onClick={() => setIsLogin(!isLogin)}
-          className="w-full mt-3 text-sm text-blue-600 hover:underline text-center block"
+          className="w-full mt-4 text-sm text-blue-600 font-medium hover:underline text-center block"
         >
           {isLogin ? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
         </button>
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 font-bold">
+
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 font-bold text-lg">
           ✕
         </button>
       </div>
