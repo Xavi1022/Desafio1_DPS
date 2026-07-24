@@ -122,12 +122,12 @@ export const productsData: Product[] = [
     urlImage: "https://images.unsplash.com/photo-1531492746076-161ca9bcad58?w=500&q=80",
   },
   {
-    id: 16,
-    title: "Cámara Web Full HD 1080p",
-    price: 50,
-    category: "Tecnología",
-    description: "Micrófono estéreo integrado y enfoque automático para videollamadas.",
-    urlImage: "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=500&q=80",
+   id: 16, 
+    title: "Micrófono Condensador USB", 
+    price: 60, 
+    category: "Tecnología", 
+    description: "Ideal para streaming, podcasts y grabaciones con filtro antipop incluido.", 
+    urlImage: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=500&q=80",
   },
   {
     id: 17,

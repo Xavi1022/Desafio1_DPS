@@ -4,12 +4,20 @@ import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 
-export default function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+export default function AuthModal({
+  isOpen,
+  onClose,
+  isRequired = false,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  isRequired?: boolean;
+}) {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const { login, register } = useAuth();
 
   if (!isOpen) return null;
 
@@ -20,16 +28,30 @@ export default function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClos
       return;
     }
 
-    login(email, isLogin ? email.split("@")[0] : name);
-    toast.success(isLogin ? "¡Sesión iniciada con éxito!" : "¡Cuenta registrada con éxito!");
-    onClose();
+    if (isLogin) {
+      const success = login(email, password);
+      if (success) {
+        toast.success("¡Sesión iniciada con éxito!");
+        onClose();
+      } else {
+        toast.error("Usuario no registrado o credenciales incorrectas. Regístrate primero.");
+      }
+    } else {
+      const success = register(email, name, password);
+      if (success) {
+        toast.success("¡Cuenta registrada con éxito!");
+        onClose();
+      } else {
+        toast.error("El correo electrónico ya está registrado. Inicia sesión.");
+      }
+    }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative text-gray-900">
+    <div className={isRequired ? "" : "fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"}>
+      <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative text-gray-900 mx-auto">
         <h2 className="text-2xl font-bold mb-4 text-gray-900">{isLogin ? "Iniciar Sesión" : "Crear Cuenta"}</h2>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
             <div>
@@ -75,9 +97,11 @@ export default function AuthModal({ isOpen, onClose }: { isOpen: boolean; onClos
           {isLogin ? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
         </button>
 
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 font-bold text-lg">
-          ✕
-        </button>
+        {!isRequired && (
+          <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 font-bold text-lg">
+            ✕
+          </button>
+        )}
       </div>
     </div>
   );
