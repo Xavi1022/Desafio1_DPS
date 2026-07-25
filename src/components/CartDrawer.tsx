@@ -2,7 +2,7 @@
 
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
-import { Trash2, Plus, Minus } from "lucide-react";
+import { Trash2, Plus, Minus, ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 
 export default function CartDrawer({
@@ -35,42 +35,50 @@ export default function CartDrawer({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex justify-end">
-      <div className="bg-white w-full max-w-md h-full flex flex-col p-6 shadow-2xl text-gray-900">
-        <div className="flex justify-between items-center mb-4 border-b border-gray-200 pb-3">
-          <h2 className="text-xl font-bold text-gray-900">Carrito de Compras</h2>
-          <button onClick={onClose} className="text-gray-500 text-xl hover:text-black font-bold">
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex justify-end transition-opacity">
+      <div className="bg-white w-full max-w-md h-full flex flex-col shadow-2xl text-slate-800">
+        {/* Cabecera estilizada */}
+        <div className="bg-slate-900 text-white p-5 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <ShoppingCart className="w-5 h-5 text-indigo-400" />
+            <h2 className="text-lg font-bold">Carrito de Compras</h2>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-white font-bold text-lg">
             ✕
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto space-y-4">
+        {/* Lista de productos */}
+        <div className="flex-1 overflow-y-auto p-5 space-y-4">
           {cart.length === 0 ? (
-            <p className="text-center text-gray-500 my-10 font-medium">El carrito está vacío</p>
+            <div className="text-center text-slate-400 my-16 space-y-2">
+              <ShoppingCart className="w-12 h-12 mx-auto text-slate-300" />
+              <p className="font-medium text-sm">Tu carrito está vacío</p>
+            </div>
           ) : (
             cart.map((item) => (
-              <div key={item.id} className="flex items-center justify-between border-b border-gray-100 pb-3">
-                <div className="flex-1 pr-2">
-                  <h4 className="font-bold text-sm text-gray-900">{item.title}</h4>
-                  <p className="text-xs text-gray-600 font-semibold">${item.price.toFixed(2)} c/u</p>
+              <div key={item.id} className="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div className="flex-1 pr-3">
+                  <h4 className="font-bold text-sm text-slate-800">{item.title}</h4>
+                  <p className="text-xs text-indigo-600 font-semibold">${item.price.toFixed(2)} c/u</p>
                   <div className="flex items-center gap-2 mt-2">
                     <button
                       onClick={() => updateQuantity(item.id, -1)}
-                      className="p-1 border border-gray-300 rounded hover:bg-gray-100 text-gray-800"
+                      className="p-1 border border-slate-200 rounded-md hover:bg-slate-100 text-slate-700"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
-                    <span className="text-xs font-bold text-gray-900 px-1">{item.quantity}</span>
+                    <span className="text-xs font-bold text-slate-800 px-1">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item.id, 1)}
-                      className="p-1 border border-gray-300 rounded hover:bg-gray-100 text-gray-800"
+                      className="p-1 border border-slate-200 rounded-md hover:bg-slate-100 text-slate-700"
                     >
                       <Plus className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-bold text-sm text-gray-900">
+                  <span className="font-extrabold text-sm text-slate-900">
                     ${(item.price * (item.quantity || 1)).toFixed(2)}
                   </span>
                   <button
@@ -78,7 +86,7 @@ export default function CartDrawer({
                       removeFromCart(item.id);
                       toast.info(`${item.title} eliminado del carrito`);
                     }}
-                    className="text-red-500 hover:text-red-700 p-1"
+                    className="text-slate-400 hover:text-red-500 p-1 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -88,15 +96,16 @@ export default function CartDrawer({
           )}
         </div>
 
-        <div className="border-t border-gray-200 pt-4 mt-auto">
-          <div className="flex justify-between text-lg font-bold mb-4 text-gray-900">
+        {/* Pie de carrito */}
+        <div className="border-t border-slate-200 p-5 bg-slate-50 mt-auto">
+          <div className="flex justify-between text-lg font-black mb-4 text-slate-900">
             <span>Total:</span>
-            <span>${total.toFixed(2)}</span>
+            <span className="text-indigo-600">${total.toFixed(2)}</span>
           </div>
           <button
             disabled={cart.length === 0}
             onClick={handleProcessCheckout}
-            className="w-full bg-green-600 text-white py-3 rounded-lg font-bold disabled:bg-gray-300 hover:bg-green-700 transition shadow-sm"
+            className="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold disabled:bg-slate-300 hover:bg-indigo-700 transition shadow-md active:scale-98"
           >
             Procesar Compra
           </button>

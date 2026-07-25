@@ -25,12 +25,14 @@ function MainContent() {
       : productsData.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900">
+    <div className="min-h-screen flex flex-col bg-slate-100/60 text-slate-800">
       <Header onOpenCart={() => setIsCartOpen(true)} onOpenAuth={() => setIsAuthOpen(true)} />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold mb-3 text-gray-900">Catálogo de Productos</h2>
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-4">
+            Catálogo de Productos
+          </h2>
           <CategoryFilter
             categories={categories}
             selectedCategory={selectedCategory}
@@ -38,7 +40,7 @@ function MainContent() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

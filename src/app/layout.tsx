@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Toaster } from "sonner";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
+
+const jakarta = Plus_Jakarta_Sans({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
   title: "OmniMarket",
@@ -15,9 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="bg-gray-50 text-gray-900 antialiased">
-        <Toaster position="top-right" richColors />
+      <body className={`${jakarta.className} antialiased bg-slate-100 text-slate-800`}>
         {children}
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );
