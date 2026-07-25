@@ -31,15 +31,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (savedUsersList) {
       setRegisteredUsers(JSON.parse(savedUsersList));
     } else {
-      // Usuario demo por defecto
-      const defaultUsers = [{ email: "usuario@udb.edu.sv", name: "Usuario Demo", password: "123" }];
-      setRegisteredUsers(defaultUsers);
-      localStorage.setItem("registered_users_db", JSON.stringify(defaultUsers));
+      // Inicia vacía o con un solo usuario demo específico
+      const initialUsers: User[] = [
+        { email: "usuario@udb.edu.sv", name: "Usuario Demo", password: "123" },
+      ];
+      setRegisteredUsers(initialUsers);
+      localStorage.setItem("registered_users_db", JSON.stringify(initialUsers));
     }
   }, []);
 
   const register = (email: string, name: string, password: string) => {
-    const exists = registeredUsers.some((u) => u.email.toLowerCase() === email.toLowerCase());
+    const exists = registeredUsers.some(
+      (u) => u.email.toLowerCase() === email.toLowerCase()
+    );
     if (exists) return false;
 
     const newUser = { email, name, password };
@@ -47,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setRegisteredUsers(updatedUsers);
     localStorage.setItem("registered_users_db", JSON.stringify(updatedUsers));
 
-    // Auto-login tras registrarse
+    // Iniciar sesión con el usuario recién creado
     setUser({ email, name });
     localStorage.setItem("user_session", JSON.stringify({ email, name }));
     return true;
@@ -55,7 +59,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = (email: string, password: string) => {
     const found = registeredUsers.find(
-      (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
+      (u) =>
+        u.email.toLowerCase() === email.toLowerCase() && u.password === password
     );
 
     if (found) {

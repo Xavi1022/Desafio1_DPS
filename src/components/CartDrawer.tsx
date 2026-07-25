@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 import { Trash2, Plus, Minus } from "lucide-react";
 import { toast } from "sonner";
 
@@ -8,20 +9,29 @@ export default function CartDrawer({
   isOpen,
   onClose,
   onCheckout,
+  onOpenAuth,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onCheckout: () => void;
+  onOpenAuth: () => void;
 }) {
   const { cart, updateQuantity, removeFromCart } = useCart();
+  const { user } = useAuth();
 
   if (!isOpen) return null;
 
   const total = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
 
-  const handleRemove = (id: number, name: string) => {
-    removeFromCart(id);
-    toast.info(`${name} eliminado del carrito`);
+  const handleProcessCheckout = () => {
+    if (!user) {
+      toast.warning("Debes iniciar sesión o registrarte para procesar tu compra.");
+      onClose();
+      onOpenAuth();
+      return;
+    }
+    onClose();
+    onCheckout();
   };
 
   return (
@@ -64,7 +74,10 @@ export default function CartDrawer({
                     ${(item.price * (item.quantity || 1)).toFixed(2)}
                   </span>
                   <button
-                    onClick={() => handleRemove(item.id, item.title)}
+                    onClick={() => {
+                      removeFromCart(item.id);
+                      toast.info(`${item.title} eliminado del carrito`);
+                    }}
                     className="text-red-500 hover:text-red-700 p-1"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -82,10 +95,7 @@ export default function CartDrawer({
           </div>
           <button
             disabled={cart.length === 0}
-            onClick={() => {
-              onClose();
-              onCheckout();
-            }}
+            onClick={handleProcessCheckout}
             className="w-full bg-green-600 text-white py-3 rounded-lg font-bold disabled:bg-gray-300 hover:bg-green-700 transition shadow-sm"
           >
             Procesar Compra

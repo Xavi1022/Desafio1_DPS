@@ -4,7 +4,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "E-Commerce UDB",
+  title: "NovaMart",
   description: "Primer Desafío Práctico - DPS",
 };
 
