@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 OmniMarket
 
-## Getting Started
+**OmniMarket** es una plataforma moderna de comercio electrónico (*E-Commerce*) desarrollada con **Next.js (App Router)**, **TypeScript** y **Tailwind CSS**. La aplicación ofrece un catálogo dinámico con productos de literatura, tecnología, hogar y accesorios, con carrito de compras en tiempo real y flujo de autenticación con persistencia de datos.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Características Principales
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Catálogo Dinámico & Filtrado:** Visualización de artículos en diseño horizontal con filtrado por categorías.
+* **Carrito de Compras (CartDrawer):** Módulo lateral para agregar, modificar cantidades y eliminar productos con cálculo automático de total.
+* **Sistema de Autenticación (AuthModal & AuthContext):**
+  * Validación estricta para inicio de sesión y registro de nuevos usuarios.
+  * Restricción de compra: requiere inicio de sesión para procesar la orden.
+* **Persistencia de Datos:** Uso de `localStorage` para conservar la sesión del usuario y los artículos del carrito al recargar la página.
+* **Diseño UI/UX Responsivo:** Interfaz moderna estilizada con Tailwind CSS y notificaciones interactivas mediante `sonner`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tecnologías Utilizadas
 
-## Learn More
+* **Framework:** [Next.js](https://nextjs.org/) (React 19 / App Router)
+* **Lenguaje:** TypeScript
+* **Estilos:** Tailwind CSS
+* **Iconos:** Lucide React
+* **Notificaciones:** Sonner
+* **Control de Versiones:** Git & GitHub
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💻 Instalación y Configuración Local
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Clonar el repositorio:**
+   ```bash
+   git clone [https://github.com/Xavi1022/Desafio1_DPS.git](https://github.com/Xavi1022/Desafio1_DPS.git)
+   cd Desafio1_DPS
