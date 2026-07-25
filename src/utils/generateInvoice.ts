@@ -1,11 +1,10 @@
 import jsPDF from "jspdf";
 import { Product } from "@/types/product";
 
-export const generateInvoicePDF = (items: Product[], userEmail: string) => {
+export const generateInvoicePDF = (items: any[], userEmail: string) => {
   const doc = new jsPDF();
 
-  // Encabezado con Banner Azul
-  doc.setFillColor(37, 99, 235); // Azul primario
+  doc.setFillColor(37, 99, 235);
   doc.rect(0, 0, 210, 35, "F");
 
   doc.setTextColor(255, 255, 255);
@@ -17,7 +16,6 @@ export const generateInvoicePDF = (items: Product[], userEmail: string) => {
   doc.setFont("helvetica", "normal");
   doc.text("E-Store UDB", 160, 22);
 
-  // Información de la transacción
   doc.setTextColor(30, 41, 59);
   doc.setFontSize(11);
   doc.setFont("helvetica", "bold");
@@ -28,7 +26,6 @@ export const generateInvoicePDF = (items: Product[], userEmail: string) => {
   doc.text(`Correo electrónico: ${userEmail}`, 14, 55);
   doc.text(`Fecha de emisión: ${new Date().toLocaleDateString()}`, 14, 61);
 
-  // Encabezado de Tabla
   let y = 75;
   doc.setFillColor(241, 245, 249);
   doc.rect(14, y - 5, 182, 9, "F");
@@ -43,7 +40,6 @@ export const generateInvoicePDF = (items: Product[], userEmail: string) => {
   doc.setDrawColor(203, 213, 225);
   doc.line(14, y + 3, 196, y + 3);
 
-  // Listado de Productos
   y += 10;
   doc.setFont("helvetica", "normal");
   doc.setTextColor(15, 23, 42);
@@ -61,7 +57,6 @@ export const generateInvoicePDF = (items: Product[], userEmail: string) => {
     y += 8;
   });
 
-  // Línea de Cierre y Total
   doc.line(14, y, 196, y);
   y += 12;
 
@@ -73,11 +68,11 @@ export const generateInvoicePDF = (items: Product[], userEmail: string) => {
   doc.setTextColor(29, 78, 216);
   doc.text(`Total Cancelado: $${total.toFixed(2)}`, 125, y + 3);
 
-  // Pie de Página
+
   doc.setFontSize(9);
   doc.setFont("helvetica", "italic");
   doc.setTextColor(100, 116, 139);
   doc.text("Gracias por tu compra en E-Store UDB.", 14, 280);
 
-  doc.save(`factura_UDB_${Date.now()}.pdf`);
+  doc.save(`factura_${Date.now()}.pdf`);
 };
