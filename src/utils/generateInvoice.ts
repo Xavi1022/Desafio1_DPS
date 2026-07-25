@@ -14,7 +14,7 @@ export const generateInvoicePDF = (items: any[], userEmail: string) => {
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
-  doc.text("E-Store UDB", 160, 22);
+  doc.text("OmniMarket", 160, 22);
 
   doc.setTextColor(30, 41, 59);
   doc.setFontSize(11);
@@ -72,7 +72,7 @@ export const generateInvoicePDF = (items: any[], userEmail: string) => {
   doc.setFontSize(9);
   doc.setFont("helvetica", "italic");
   doc.setTextColor(100, 116, 139);
-  doc.text("Gracias por tu compra en E-Store UDB.", 14, 280);
+  doc.text("Gracias por tu compra en OmniMarket", 14, 280);
 
   doc.save(`factura_${Date.now()}.pdf`);
 };

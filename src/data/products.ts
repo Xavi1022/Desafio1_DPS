@@ -62,7 +62,7 @@ export const productsData: Product[] = [
     description: "Mouse recargable con ajuste de DPI y diseño que reduce la fatiga de la muñeca.",
     price: 24.50,
     category: "Tecnología",
-    urlImage: "https://www.steren.com.sv/media/catalog/product/cache/0236bbabe616ddcff749ccbc14f38bf2/image/2317275c6/mouse-inalambrico-ergonomico-con-bateria-recargable-600-800-1200-dpi.jpg",
+    urlImage: "https://promart.vteximg.com.br/arquivos/ids/8671524/imageUrl_1.jpg?v=638773580951070000"
   },
   {
     id: "8",
