@@ -5,11 +5,13 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 interface User {
   email: string;
   name: string;
+  password?: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, name: string) => void;
+  login: (email: string, password: string) => boolean;
+  register: (email: string, name: string, password: string) => boolean;
   logout: () => void;
 }
 
@@ -17,18 +19,52 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [registeredUsers, setRegisteredUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user_session");
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
+
+    const savedUsersList = localStorage.getItem("registered_users_db");
+    if (savedUsersList) {
+      setRegisteredUsers(JSON.parse(savedUsersList));
+    } else {
+      // Usuario demo por defecto
+      const defaultUsers = [{ email: "usuario@udb.edu.sv", name: "Usuario Demo", password: "123" }];
+      setRegisteredUsers(defaultUsers);
+      localStorage.setItem("registered_users_db", JSON.stringify(defaultUsers));
+    }
   }, []);
 
-  const login = (email: string, name: string) => {
-    const userData = { email, name };
-    setUser(userData);
-    localStorage.setItem("user_session", JSON.stringify(userData));
+  const register = (email: string, name: string, password: string) => {
+    const exists = registeredUsers.some((u) => u.email.toLowerCase() === email.toLowerCase());
+    if (exists) return false;
+
+    const newUser = { email, name, password };
+    const updatedUsers = [...registeredUsers, newUser];
+    setRegisteredUsers(updatedUsers);
+    localStorage.setItem("registered_users_db", JSON.stringify(updatedUsers));
+
+    // Auto-login tras registrarse
+    setUser({ email, name });
+    localStorage.setItem("user_session", JSON.stringify({ email, name }));
+    return true;
+  };
+
+  const login = (email: string, password: string) => {
+    const found = registeredUsers.find(
+      (u) => u.email.toLowerCase() === email.toLowerCase() && u.password === password
+    );
+
+    if (found) {
+      const userData = { email: found.email, name: found.name };
+      setUser(userData);
+      localStorage.setItem("user_session", JSON.stringify(userData));
+      return true;
+    }
+    return false;
   };
 
   const logout = () => {
@@ -37,7 +73,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
