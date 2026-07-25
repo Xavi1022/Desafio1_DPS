@@ -4,7 +4,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NovaMart",
+  title: "OmniMarket",
   description: "Primer Desafío Práctico - DPS",
 };
 

@@ -19,7 +19,7 @@ export default function Header({
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <h1 className="text-xl font-bold text-blue-600">NovaMart</h1>
+        <h1 className="text-xl font-bold text-blue-600">OmniMarket</h1>
 
         <div className="flex items-center gap-4">
           <button
