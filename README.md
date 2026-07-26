@@ -29,7 +29,9 @@
 
 ## 💻 Instalación y Configuración Local
 
-1. **Clonar el repositorio:**
    ```bash
    git clone [https://github.com/Xavi1022/Desafio1_DPS.git](https://github.com/Xavi1022/Desafio1_DPS.git)
    cd Desafio1_DPS
+
+## 💻 Video
+ Video: https://youtu.be/vzIC-r-p2TQ
